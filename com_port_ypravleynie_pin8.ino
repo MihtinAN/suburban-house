@@ -47,14 +47,16 @@ delay(500);
 }
 
 void loop() {
-
+String  data="";
 int temp=40;
 int x=0;
 int ttemp=1000; 
 int x1=1; 
-
+int dver = 0;
+int pech = 0;
+int fort = 0;
  while (x1 == 1) {
-  ttemp = analogRead(0);
+  ttemp = analogRead(A0);
   lcd.setCursor(12,0);
   lcd.print(ttemp); 
   
@@ -76,29 +78,48 @@ int x1=1;
        lcd.setCursor(5,0); 
        lcd.print(1);
        digitalWrite(LED_BUILTIN, HIGH);
+       dver = 1;
        }
   if (x == 10) {
        lcd.setCursor(5,0); 
        lcd.print(0);
        digitalWrite(LED_BUILTIN, LOW); 
+       dver = 0;
        }
    if (x == 27) {
        lcd.setCursor(6,0); 
        lcd.print(1);
+       pech = 1;
        }
    if (x == 11) {
        lcd.setCursor(6,0); 
        lcd.print(0);
+       pech = 0;
        }
    if (x == 28) {
        lcd.setCursor(7,0); 
        lcd.print(1);
+       fort = 1;
        }
    if (x == 12) {
        lcd.setCursor(7,0); 
        lcd.print(0);
+       fort = 0;
        }
-   if (x >= 30 and x<80) {
+   if (x == 49) {
+       lcd.setCursor(9,0); 
+       lcd.print(1);
+       data=String(dver)+String(pech)+String(fort);
+       
+       Serial.println(data);
+       }
+   if (x == 50) {
+       lcd.setCursor(9,0); 
+       lcd.print(0);
+       Serial.write("22");
+       }
+   
+   if (x >= 70 and x<80) {
         temp=x;
        lcd.setCursor(10,0);       
        lcd.print(temp);
